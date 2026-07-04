@@ -1,0 +1,1301 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Morgan — AI Integration Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F3EF;
+    --surface: #FFFFFF;
+    --surface-2: #FBFAF7;
+    --ink: #221F26;
+    --ink-soft: #5C5764;
+    --ink-faint: #938E9C;
+    --accent: #69488E;
+    --accent-deep: #4C3268;
+    --accent-soft: #EFE7F6;
+    --line: #E2DCE7;
+    --line-strong: #CCC4D4;
+    --gold: #A9824E;
+    --gold-soft: #F2EADB;
+    --radius: 3px;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  .wrap{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header.title-block{
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    box-shadow: 0 1px 0 rgba(34,31,38,0.03);
+  }
+  .title-block-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap: 24px;
+    padding: 28px 32px 24px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size: clamp(30px, 4.2vw, 44px);
+    line-height: 1.05;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .subtitle{
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 0;
+    line-height: 1.55;
+  }
+  .meta-stamp{
+    font-family:var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-align: right;
+    line-height: 1.7;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+  .meta-stamp strong{ color: var(--ink-soft); font-weight:500; }
+
+  .title-rule{
+    height: 18px;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    background-image: repeating-linear-gradient(
+      90deg, var(--line-strong) 0, var(--line-strong) 1px,
+      transparent 1px, transparent 8px
+    );
+    background-position: center;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  .title-rule::before{
+    content: "";
+    position:absolute; left:0; right:0; top:0; bottom:0;
+    background-image: repeating-linear-gradient(90deg, var(--line-strong) 0 1px, transparent 1px 8px);
+  }
+
+  .legend-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    padding: 16px 32px;
+    background: var(--surface-2);
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:8px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    letter-spacing:0.02em;
+  }
+  .legend-swatch{
+    width:10px; height:10px; border:1px solid var(--line-strong); flex:none;
+  }
+  .legend-swatch.accent{ background: var(--accent); border-color:var(--accent); }
+  .legend-swatch.gold{ background: var(--gold); border-color:var(--gold); }
+
+  /* ---------- CONTROLS ---------- */
+  .controls{
+    margin-top: 28px;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 14px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .search-box{
+    position:relative;
+    flex: 1 1 240px;
+    min-width: 220px;
+  }
+  .search-box input{
+    width:100%;
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 11px 14px 11px 34px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: var(--radius);
+  }
+  .search-box input::placeholder{ color: var(--ink-faint); }
+  .search-box svg{
+    position:absolute; left:11px; top:50%; transform:translateY(-50%);
+    width:14px; height:14px; color: var(--ink-faint);
+  }
+
+  .chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px;
+  }
+  .chip{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    padding: 8px 12px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink-soft);
+    border-radius: 20px;
+    cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .chip:hover{ border-color: var(--accent); }
+  .chip[aria-pressed="true"]{
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .result-count{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin: 10px 2px 0;
+  }
+
+  /* ---------- TABLE ---------- */
+  .index-table-wrap{
+    margin-top: 18px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    overflow:hidden;
+  }
+  table{
+    width:100%;
+    border-collapse: collapse;
+  }
+  thead th{
+    text-align:left;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: var(--surface-2);
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line-strong);
+    cursor: pointer;
+    user-select:none;
+    white-space:nowrap;
+  }
+  thead th .arrow{
+    display:inline-block;
+    margin-left: 5px;
+    opacity: 0.35;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    font-size: 9px;
+  }
+  thead th.active-sort .arrow{ opacity: 1; color: var(--accent); }
+  thead th.desc .arrow{ transform: rotate(180deg); }
+  thead th:not(.sortable){ cursor:default; }
+
+  tbody tr.row{
+    cursor:pointer;
+    transition: background 0.12s ease;
+  }
+  tbody tr.row:hover{ background: var(--accent-soft); }
+  tbody tr.row.is-open{ background: var(--accent-soft); }
+  tbody tr.row td{
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    font-size: 13.5px;
+  }
+  tbody tr.row:last-child td{ border-bottom: none; }
+
+  td.col-sheet{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight:500;
+    width: 78px;
+    white-space:nowrap;
+  }
+  td.col-title{ min-width: 220px; }
+  td.col-title .t-name{
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    display:block;
+    margin-bottom: 3px;
+  }
+  td.col-title .t-blurb{
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    display:block;
+    max-width: 46ch;
+  }
+  td.col-tool{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  td.col-scale{ width: 200px; }
+  td.col-caret{
+    width: 24px;
+    text-align:center;
+    color: var(--ink-faint);
+  }
+  td.col-caret svg{
+    transition: transform 0.18s ease;
+    width:12px; height:12px;
+  }
+  tr.row.is-open td.col-caret svg{ transform: rotate(90deg); color:var(--accent); }
+
+  /* scale bar — drafting-scale style indicator */
+  .scale{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .scale-track{
+    position: relative;
+    flex: 1 1 auto;
+    height: 14px;
+  }
+  .scale-line{
+    position:absolute; left:0; right:0; top:6px; height:1px; background: var(--line-strong);
+  }
+  .scale-fill{
+    position:absolute; left:0; top: 5.5px; height: 2px; background: var(--accent);
+  }
+  .scale-tick{
+    position:absolute; top:2px; width:1px; height:10px; background: var(--line-strong);
+  }
+  .scale-tick.filled{ background: var(--accent); }
+  .scale-marker{
+    position:absolute; top: -1px; width:9px; height:9px;
+    border-radius:50%;
+    background: var(--gold);
+    border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--gold);
+    transform: translateX(-50%);
+  }
+  .scale-label{
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    width: 86px;
+    text-align:right;
+  }
+
+  /* ---------- DETAIL PANEL ---------- */
+  tr.detail-row{ display:none; }
+  tr.detail-row.open{ display: table-row; }
+  tr.detail-row td{
+    padding: 0;
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--surface-2);
+  }
+  .detail-inner{
+    padding: 28px 28px 32px;
+    border-top: 1px dashed var(--line-strong);
+    animation: unfold 0.22s ease;
+  }
+  @keyframes unfold{
+    from{ opacity:0; transform: translateY(-6px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .detail-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .detail-head h3{
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+  .detail-head .d-tool{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+  .detail-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 760px){ .detail-grid{ grid-template-columns: 1fr; } }
+
+  .d-section h4{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .d-section p{
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+  }
+  .d-section ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .d-section li{
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 9px;
+  }
+  .d-section li::before{
+    content: "—";
+    position:absolute; left:0; top:0;
+    color: var(--accent);
+  }
+  .d-note{
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--gold-soft);
+    border-left: 2px solid var(--gold);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .empty-state{
+    padding: 48px 24px;
+    text-align:center;
+    color: var(--ink-faint);
+    font-family: var(--mono);
+    font-size: 12.5px;
+  }
+
+  /* ---------- IFRAME EMBED ---------- */
+  .d-iframe-section{
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .d-iframe-section h4{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+  }
+  .iframe-wrap{
+    position: relative;
+    width: 100%;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .iframe-toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .iframe-url-bar{
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 5px 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .iframe-url-bar svg{
+    width: 11px; height: 11px; flex: none; color: var(--accent);
+  }
+  .iframe-url-text{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .iframe-toolbar-actions{
+    display: flex;
+    gap: 8px;
+    margin-left: 10px;
+    flex: none;
+  }
+  .iframe-btn{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+  .iframe-btn:hover{ border-color: var(--accent); color: var(--accent); }
+  .iframe-btn svg{ width: 11px; height: 11px; }
+  .iframe-frame{
+    width: 100%;
+    height: 560px;
+    border: none;
+    display: block;
+  }
+  .iframe-src-input-row{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border-top: 1px solid var(--line);
+  }
+  .iframe-src-input{
+    flex: 1 1 auto;
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 8px 10px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: var(--radius);
+    min-width: 0;
+  }
+  .iframe-src-input:focus{ border-color: var(--accent); }
+  .iframe-src-input::placeholder{ color: var(--ink-faint); }
+  .iframe-load-btn{
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 8px 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+    flex: none;
+  }
+  .iframe-load-btn:hover{ background: var(--accent-deep); }
+
+  /* responsive table -> stacked cards */
+  @media (max-width: 720px){
+    .wrap{ padding: 32px 16px 64px; }
+    .title-block-top{ flex-direction:column; }
+    .meta-stamp{ text-align:left; }
+    thead{ display:none; }
+    table, tbody, tr.row{ display:block; width:100%; }
+    tbody tr.row td{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom: none;
+      padding: 6px 16px;
+    }
+    tbody tr.row{
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+    }
+    td.col-sheet::before{ content:"Sheet"; font-size:9px; color:var(--ink-faint); margin-right:8px; }
+    td.col-tool::before{ content:"Tool"; font-size:9px; color:var(--ink-faint); margin-right:8px; }
+    td.col-scale{ width:auto; }
+    td.col-caret{ display:none !important; }
+    .detail-grid{ grid-template-columns: 1fr; }
+  }
+
+  footer.colophon{
+    margin-top: 36px;
+    text-align:center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- SAVE BUTTON ---------- */
+  .save-bar{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .save-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 10px 18px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+  }
+  .save-btn:hover{ background: var(--accent-deep); box-shadow: 0 2px 8px rgba(105,72,142,0.25); }
+  .save-btn svg{ width: 13px; height: 13px; }
+  .save-status{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .save-status.visible{ opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- Baked-in file attachments — updated by "Save portfolio" export -->
+<script id="portfolio-data" type="application/json">
+{"a02":{"iframeSrc":"file:///G:/ELVTR%20Class/Adam_Morgan_Assignment02.html"},"a03":{"iframeSrc":"file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment03.html"},"a04":{"iframeSrc":"file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment04.html"},"a05":{"iframeSrc":"file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment05.html"},"a08":{"iframeSrc":"file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment08.html"}}
+</script>
+
+<div class="wrap">
+
+  <header class="title-block">
+    <div class="title-block-top">
+      <div>
+        <p class="eyebrow">ELVTR · AI for Architects — Coursework Set</p>
+        <h1>AI Integration <em>Portfolio</em></h1>
+        <p class="subtitle">A working index of six studies on applying AI across the project lifecycle — from text-to-image massing studies to a parametric Grasshopper agent and a one-year practice adoption plan.</p>
+      </div>
+      <div class="meta-stamp">
+        Prepared by<br><strong>Adam Morgan</strong><br>
+        Sheet set: A–00 / A–02–05 / A–08<br>
+        Scale: as noted
+      </div>
+    </div>
+    <div class="title-rule" aria-hidden="true"></div>
+    <div class="legend-row">
+      <span class="legend-item"><span class="legend-swatch accent"></span>Click any row to open the sheet detail</span>
+      <span class="legend-item"><span class="legend-swatch gold"></span>Marker = expertise level demonstrated, 1 (foundational) to 5 (advanced technical)</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="searchInput" type="text" placeholder="Search assignments…" autocomplete="off">
+    </div>
+    <div class="chip-row" id="chipRow" role="group" aria-label="Filter by tool category"><button class="chip" type="button" aria-pressed="true">Tool Evaluation</button><button class="chip" type="button" aria-pressed="true">Text-to-Image AI</button><button class="chip" type="button" aria-pressed="true">Generative Grasshopper Plugin</button><button class="chip" type="button" aria-pressed="true">Image-to-Image AI</button><button class="chip" type="button" aria-pressed="true">Custom AI Agent (Gemini Gem)</button><button class="chip" type="button" aria-pressed="true">Multi-Tool Strategy</button></div>
+  </div>
+
+  <p class="result-count" id="resultCount">Showing all 6 sheets</p>
+
+  <div class="index-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable active-sort" data-key="sheetSort">Sheet <span class="arrow">▾</span></th>
+          <th class="sortable" data-key="title">Assignment <span class="arrow">▾</span></th>
+          <th class="sortable" data-key="tool">Tool <span class="arrow">▾</span></th>
+          <th class="sortable" data-key="level">Expertise level <span class="arrow">▾</span></th>
+          <th aria-hidden="true"></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"><tr class="row" data-id="a00" role="button" tabindex="0" aria-expanded="false">
+        <td class="col-sheet">A–01</td>
+        <td class="col-title">
+          <span class="t-name">AI Tool Classification Matrix</span>
+          <span class="t-blurb">Scoring five to seven AI tools for potential adoption into practice.</span>
+        </td>
+        <td class="col-tool">Tool Evaluation</td>
+        <td class="col-scale">
+      <div class="scale" aria-label="Expertise level 1 of 5: Foundational">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:0%"></div>
+          <span class="scale-tick filled" style="left:0%"></span><span class="scale-tick " style="left:25%"></span><span class="scale-tick " style="left:50%"></span><span class="scale-tick " style="left:75%"></span><span class="scale-tick " style="left:100%"></span>
+          <div class="scale-marker" style="left:0%"></div>
+        </div>
+        <span class="scale-label">1/5 · Foundational</span>
+      </div></td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"></polyline></svg></td>
+      </tr><tr class="detail-row"><td colspan="5"></td></tr><tr class="row" data-id="a02" role="button" tabindex="0" aria-expanded="false">
+        <td class="col-sheet">A–02</td>
+        <td class="col-title">
+          <span class="t-name">AI Text-to-Image Visualization</span>
+          <span class="t-blurb">Three visualizations built from text prompts alone, each pushed through several rounds of iteration.</span>
+        </td>
+        <td class="col-tool">Text-to-Image AI</td>
+        <td class="col-scale">
+      <div class="scale" aria-label="Expertise level 2 of 5: Applied">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:25%"></div>
+          <span class="scale-tick filled" style="left:0%"></span><span class="scale-tick filled" style="left:25%"></span><span class="scale-tick " style="left:50%"></span><span class="scale-tick " style="left:75%"></span><span class="scale-tick " style="left:100%"></span>
+          <div class="scale-marker" style="left:25%"></div>
+        </div>
+        <span class="scale-label">2/5 · Applied</span>
+      </div></td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"></polyline></svg></td>
+      </tr><tr class="detail-row"><td colspan="5"></td></tr><tr class="row" data-id="a03" role="button" tabindex="0" aria-expanded="false">
+        <td class="col-sheet">A–03</td>
+        <td class="col-title">
+          <span class="t-name">Parametric Design with AI — Raven</span>
+          <span class="t-blurb">Building a working Grasshopper definition for an asymmetrical helix tower entirely from natural-language prompts.</span>
+        </td>
+        <td class="col-tool">Generative Grasshopper Plugin</td>
+        <td class="col-scale">
+      <div class="scale" aria-label="Expertise level 5 of 5: Advanced technical">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:100%"></div>
+          <span class="scale-tick filled" style="left:0%"></span><span class="scale-tick filled" style="left:25%"></span><span class="scale-tick filled" style="left:50%"></span><span class="scale-tick filled" style="left:75%"></span><span class="scale-tick filled" style="left:100%"></span>
+          <div class="scale-marker" style="left:100%"></div>
+        </div>
+        <span class="scale-label">5/5 · Advanced technical</span>
+      </div></td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"></polyline></svg></td>
+      </tr><tr class="detail-row"><td colspan="5"></td></tr><tr class="row" data-id="a04" role="button" tabindex="0" aria-expanded="false">
+        <td class="col-sheet">A–04</td>
+        <td class="col-title">
+          <span class="t-name">AI Image-to-Image Visualization</span>
+          <span class="t-blurb">Relocating, restyling, and re-lighting existing building models to test how well massing intent survives heavy context changes.</span>
+        </td>
+        <td class="col-tool">Image-to-Image AI</td>
+        <td class="col-scale">
+      <div class="scale" aria-label="Expertise level 2 of 5: Applied">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:25%"></div>
+          <span class="scale-tick filled" style="left:0%"></span><span class="scale-tick filled" style="left:25%"></span><span class="scale-tick " style="left:50%"></span><span class="scale-tick " style="left:75%"></span><span class="scale-tick " style="left:100%"></span>
+          <div class="scale-marker" style="left:25%"></div>
+        </div>
+        <span class="scale-label">2/5 · Applied</span>
+      </div></td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"></polyline></svg></td>
+      </tr><tr class="detail-row"><td colspan="5"></td></tr><tr class="row" data-id="a05" role="button" tabindex="0" aria-expanded="false">
+        <td class="col-sheet">A–05</td>
+        <td class="col-title">
+          <span class="t-name">AI-Powered Design Review Protocol</span>
+          <span class="t-blurb">A custom Gemini Gem built as a first-pass QA/QC reviewer for AEC construction documents.</span>
+        </td>
+        <td class="col-tool">Custom AI Agent (Gemini Gem)</td>
+        <td class="col-scale">
+      <div class="scale" aria-label="Expertise level 4 of 5: Systems-level">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:75%"></div>
+          <span class="scale-tick filled" style="left:0%"></span><span class="scale-tick filled" style="left:25%"></span><span class="scale-tick filled" style="left:50%"></span><span class="scale-tick filled" style="left:75%"></span><span class="scale-tick " style="left:100%"></span>
+          <div class="scale-marker" style="left:75%"></div>
+        </div>
+        <span class="scale-label">4/5 · Systems-level</span>
+      </div></td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"></polyline></svg></td>
+      </tr><tr class="detail-row"><td colspan="5"></td></tr><tr class="row is-open" data-id="a08" role="button" tabindex="0" aria-expanded="true">
+        <td class="col-sheet">A–08</td>
+        <td class="col-title">
+          <span class="t-name">AI Professional Development Plan</span>
+          <span class="t-blurb">A one-year roadmap for phasing AI tool adoption across a firm, sequenced to the real project lifecycle.</span>
+        </td>
+        <td class="col-tool">Multi-Tool Strategy</td>
+        <td class="col-scale">
+      <div class="scale" aria-label="Expertise level 3 of 5: Strategic">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:50%"></div>
+          <span class="scale-tick filled" style="left:0%"></span><span class="scale-tick filled" style="left:25%"></span><span class="scale-tick filled" style="left:50%"></span><span class="scale-tick " style="left:75%"></span><span class="scale-tick " style="left:100%"></span>
+          <div class="scale-marker" style="left:50%"></div>
+        </div>
+        <span class="scale-label">3/5 · Strategic</span>
+      </div></td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"></polyline></svg></td>
+      </tr><tr class="detail-row open"><td colspan="5">
+      <div class="detail-inner">
+        <div class="detail-head">
+          <div>
+            <h3>AI Professional Development Plan</h3>
+            <span class="d-tool">A–08 · Multi-Tool Strategy</span>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="d-section"><h4>Description</h4><p>A one-year plan (July 2026–June 2027) for phasing AI tool adoption across an architectural firm, sequenced to follow the real project lifecycle so each tool is learned in the workflow context where it delivers the most value.</p></div>
+          <div class="d-section"><h4>Methodology</h4><ul><li>Month 1 — establish baseline task-hour and revision-cycle metrics before adopting anything, so later efficiency claims have a real denominator.</li><li>Months 1–3 — Finch for generative/parametric massing in schematic design.</li><li>Months 4–6 — Claude Design for client-facing presentations and design narratives.</li><li>Months 7–9 — SketchPro for DD/CD documentation automation inside live Revit models, with mandatory licensed-architect review on anything touching code or life safety.</li><li>Months 10–12 — a custom Gemini Gem fed by Plaud.ai transcripts for meeting minutes, plus Part3 for construction-administration submittal review and revision tracking.</li></ul></div>
+          <div class="d-section"><h4>Results</h4><ul><li>Each tool section carries its own adoption-status tracker and milestone-completion tracker for leadership check-ins.</li><li>Year-end framework rests on three goals: efficiency validated against the Month-1 baseline, documented SOPs once a workflow shows consistent gains across more than one team member, and mandatory human review preserved on anything touching code compliance or contractual CA decisions.</li></ul></div>
+        </div>
+        <div class="d-section"><h4>Reflection</h4><p>Pricing and availability for several tools — Claude Design credits, SketchPro pricing, Gemini Gem and Plaud.ai tier limits — couldn’t be confirmed from public sources and are explicitly flagged to verify before budgeting, rather than estimated.</p></div>
+        
+        
+      <div class="d-iframe-section" data-iframe-section="a08">
+        <h4>Embedded view</h4>
+        <div class="iframe-wrap">
+          <div class="iframe-toolbar">
+            <div class="iframe-url-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="iframe-url-text" id="iframe-url-display-a08">file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment08.html</span>
+            </div>
+            <div class="iframe-toolbar-actions">
+              <a href="file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment08.html" target="_blank" rel="noopener" class="iframe-btn" id="iframe-open-link-a08" tabindex="-1" style="">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Open
+              </a>
+            </div>
+          </div>
+          <iframe class="iframe-frame" id="iframe-frame-a08" src="file:///C:/Users/acmar/Downloads/Adam_Morgan_Assignment08.html" title="AI Professional Development Plan" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
+          <div class="iframe-src-input-row">
+            <input type="text" class="iframe-src-input" id="iframe-src-input-a08" placeholder="Paste a URL to embed (e.g. https://… or a local file path)…" value="">
+            <button type="button" class="iframe-load-btn" data-iframe-load="a08">Load</button>
+          </div>
+        </div>
+      </div>
+      </div></td></tr></tbody>
+    </table>
+    <div id="emptyState" class="empty-state" style="display:none;">No sheets match that search or filter.</div>
+  </div>
+
+  <div class="save-bar">
+    <span class="save-status" id="saveStatus">✓ Portfolio saved</span>
+    <button type="button" class="save-btn" id="saveBtn" disabled="">Preparing…</button>
+  </div>
+
+  <footer class="colophon">END OF INDEX — ADAM MORGAN — AI FOR ARCHITECTS</footer>
+</div>
+
+<script>
+(function(){
+
+  /* ---------------- DATA ---------------- */
+  const ASSIGNMENTS = [
+    {
+      id: 'a00',
+      sheet: 'A–01',
+      sheetSort: 1,
+      title: 'AI Tool Classification Matrix',
+      tool: 'Tool Evaluation',
+      toolKey: 'evaluation',
+      level: 1,
+      levelLabel: 'Foundational',
+      blurb: 'Scoring five to seven AI tools for potential adoption into practice.',
+      description: 'A classification matrix evaluating five to seven AI tools against a consistent set of criteria for potential integration into architectural practice — built to support an apples-to-apples comparison rather than isolated tool reviews.',
+      methodology: [
+        'Identified candidate tools spanning the project lifecycle, from early massing through construction administration.',
+        'Scored each tool against a shared set of practice-relevant criteria so results could be compared side by side.'
+      ],
+      results: [
+        'Output is a standalone matrix file (ai-architecture-tools-matrix_7.html) rather than embedded content here.'
+      ],
+      note: 'This sheet\u2019s source matrix file wasn\u2019t included in the uploaded materials, so the full scoring grid isn\u2019t reproduced in this portfolio. Link or embed the original file here once available.',
+      iframeSrc: 'file:///C:/Users/acmar/Downloads/ai-architecture-tools-matrix_7.html'
+    },
+    {
+      id: 'a02',
+      sheet: 'A–02',
+      sheetSort: 2,
+      title: 'AI Text-to-Image Visualization',
+      tool: 'Text-to-Image AI',
+      toolKey: 'text-to-image',
+      level: 2,
+      levelLabel: 'Applied',
+      blurb: 'Three visualizations built from text prompts alone, each pushed through several rounds of iteration.',
+      description: 'Three independent visualization studies generated entirely from text prompts, each iterated two to four times to test how reliably an AI model holds onto building geometry and site context while design intent is refined through plain language.',
+      methodology: [
+        'Visualization 1 — a police precinct with a ground-floor community basketball court — iterated from an ink-sketch axonometric to a moody street-level rendering, a failed brand-style request, and a pastel hand-drawn pass.',
+        'Visualization 2 — a contemporary public library — iterated from a wooded landscape setting into a European urban waterfront context with amphitheater seating added at the water\u2019s edge.',
+        'Visualization 3 — a contemporary museum — iterated from a loose conceptual ink sketch to a golden-hour photo-real rendering.',
+        'Every pass logged the tool, model, aspect ratio, resolution, and generation count, with a written evaluation of what held and what drifted.'
+      ],
+      results: [
+        'A request styled after a named architect was declined by the model as protected character/brand content — a notable signal for firms thinking about visual IP protection.',
+        'Building massing and street context stayed far more stable across edits than smaller programmatic details: the basketball court was re-imagined as a lobby in one pass and reduced to a single backboard in another.',
+        'Final selected image carried forward for each of the three visualizations, each with a documented reason for the choice.'
+      ]
+    },
+    {
+      id: 'a03',
+      sheet: 'A–03',
+      sheetSort: 3,
+      title: 'Parametric Design with AI — Raven',
+      tool: 'Generative Grasshopper Plugin',
+      toolKey: 'parametric',
+      level: 5,
+      levelLabel: 'Advanced technical',
+      blurb: 'Building a working Grasshopper definition for an asymmetrical helix tower entirely from natural-language prompts.',
+      description: 'Used Raven, an AI-native Grasshopper plugin, to generate a parametric, asymmetrical helix tower with a hexagonal facade from a single natural-language prompt, then refined the resulting definition through a sequence of targeted follow-up prompts.',
+      methodology: [
+        'Opened with a deliberately simple prompt to avoid over-constraining the first pass; Raven independently added parameter controls beyond what was asked for — U/V divisions, base radius, eccentricity, floor height and count, twist angle.',
+        'Follow-up prompts narrowed the definition: floor count locked to whole numbers, pipe geometry added to the facade grid with a diameter slider, the hexagonal grid swapped for a diagrid for legibility, and the script reorganized into labeled groups.',
+        'A final prompt replaced the circular base plane with a triangular one and added a per-floor scalar control to push the form toward a more convincing asymmetry.'
+      ],
+      results: [
+        'Tower 1.0 and 1.1 — deviation studies adjusting individual parameters on the original circular-base definition.',
+        'Tower 2.0 — final geometry built on a triangular base plane with per-floor scaling, matched against the original brief.',
+        'Each iteration documented with its corresponding Grasshopper definition and the full Raven prompt-and-response log.'
+      ],
+      reflection: 'Raven took real liberties when prompts were left open-ended — extra sliders, preview widgets — which sped up early development but created cleanup work later, such as swatch components getting tangled into parameter groups during auto-organization. The eccentricity control alone wasn\u2019t enough to read as asymmetrical until the base geometry itself changed to a triangle.'
+    },
+    {
+      id: 'a04',
+      sheet: 'A–04',
+      sheetSort: 4,
+      title: 'AI Image-to-Image Visualization',
+      tool: 'Image-to-Image AI',
+      toolKey: 'image-to-image',
+      level: 2,
+      levelLabel: 'Applied',
+      blurb: 'Relocating, restyling, and re-lighting existing building models to test how well massing intent survives heavy context changes.',
+      description: 'Three visualization studies that take an existing building model or reference image and relocate, restyle, or re-light it using image-to-image AI, testing how well massing and material intent hold up under aggressive contextual changes.',
+      methodology: [
+        'Visualization 1 — a twisted glass-and-steel tower reference placed first in Dubai, then relocated to London along the Thames, then pushed toward a nighttime lighting study.',
+        'Visualization 2 — a readiness-center reference rendered with specific material, flag, and uniform requirements, then cleaned up for vehicle placement and shadow artifacts, then pushed to a golden-hour precast-concrete variant.',
+        'Visualization 3 — a mixed-use tower reference rendered as a sketchy ink-and-watercolor study, then pushed to a photo-real glass tower with people and vehicles, with two further passes to fix a cropped roofline.'
+      ],
+      results: [
+        'Final selected image carried forward for each visualization, logged with tool, model, ratio, resolution, and generation count.',
+        'Massing and material direction generally held up well across heavy context swaps.'
+      ],
+      reflection: 'The model was strong at preserving overall massing and material intent, but struggled with literal instruction scope — asking it to remove vehicles from only one side of an image affected the whole frame — and with geographic accuracy, placing the Tower of London on the wrong side of Tower Bridge. Outputs still need a knowledgeable reviewer to catch context errors the model won\u2019t flag on its own.'
+    },
+    {
+      id: 'a05',
+      sheet: 'A–05',
+      sheetSort: 5,
+      title: 'AI-Powered Design Review Protocol',
+      tool: 'Custom AI Agent (Gemini Gem)',
+      toolKey: 'agent',
+      level: 4,
+      levelLabel: 'Systems-level',
+      blurb: 'A custom Gemini Gem built as a first-pass QA/QC reviewer for AEC construction documents.',
+      description: 'A custom Gemini Gem built as a first-pass QA/QC reviewer for AEC construction documents — checking spelling and abbreviations, cross-referencing drawings against the project specifications, and flagging trade-coordination conflicts.',
+      methodology: [
+        'Drafted a structured prompt (role, goal, methodology, mandatory output format, tone) using a Gem Instruction Generator, after Claude\u2019s equivalent tool failed on the same document set and hit an account credit limit.',
+        'Loaded a firm-standard abbreviations list into the Gem\u2019s knowledge base as a reference document.',
+        'Ran two full test passes on a completed fire station project — architectural, civil, structural, and MEP/FP/FA drawings plus the full project manual.'
+      ],
+      results: [
+        'Both test runs returned the required four-part report: executive summary, textual/abbreviation audit, drawing-vs-specification gaps, and a trade-coordination log.',
+        'Both runs scored the same project 68/100 on document readiness, despite reviewing two different drawing sets.',
+        'The Gem correctly caught a number of real spelling and abbreviation errors that could otherwise generate RFIs.'
+      ],
+      reflection: 'The spelling and abbreviation catches were genuinely useful and low-risk to act on. But the Gem also produced confident false positives — flagging a missing precast-concrete spec section on a project with no precast scope, treating differing per-discipline title-block addresses as a liability issue, and badly misreading a structural/architectural coordination item while missing an actual error (missing footings) in the same area once it was checked by hand. It also read a documented scope change as literal site demolition. The identical 68/100 score across two different drawing sets raises a real question about whether the scoring reflects issue count or actual severity. Promising as a first pass; not yet reliable enough to run unsupervised in a professional setting.'
+    },
+    {
+      id: 'a08',
+      sheet: 'A–08',
+      sheetSort: 8,
+      title: 'AI Professional Development Plan',
+      tool: 'Multi-Tool Strategy',
+      toolKey: 'strategy',
+      level: 3,
+      levelLabel: 'Strategic',
+      blurb: 'A one-year roadmap for phasing AI tool adoption across a firm, sequenced to the real project lifecycle.',
+      description: 'A one-year plan (July 2026–June 2027) for phasing AI tool adoption across an architectural firm, sequenced to follow the real project lifecycle so each tool is learned in the workflow context where it delivers the most value.',
+      methodology: [
+        'Month 1 — establish baseline task-hour and revision-cycle metrics before adopting anything, so later efficiency claims have a real denominator.',
+        'Months 1–3 — Finch for generative/parametric massing in schematic design.',
+        'Months 4–6 — Claude Design for client-facing presentations and design narratives.',
+        'Months 7–9 — SketchPro for DD/CD documentation automation inside live Revit models, with mandatory licensed-architect review on anything touching code or life safety.',
+        'Months 10–12 — a custom Gemini Gem fed by Plaud.ai transcripts for meeting minutes, plus Part3 for construction-administration submittal review and revision tracking.'
+      ],
+      results: [
+        'Each tool section carries its own adoption-status tracker and milestone-completion tracker for leadership check-ins.',
+        'Year-end framework rests on three goals: efficiency validated against the Month-1 baseline, documented SOPs once a workflow shows consistent gains across more than one team member, and mandatory human review preserved on anything touching code compliance or contractual CA decisions.'
+      ],
+      reflection: 'Pricing and availability for several tools — Claude Design credits, SketchPro pricing, Gemini Gem and Plaud.ai tier limits — couldn\u2019t be confirmed from public sources and are explicitly flagged to verify before budgeting, rather than estimated.'
+    }
+  ];
+
+  const LEVEL_LABELS = {1:'Foundational', 2:'Applied', 3:'Strategic', 4:'Systems-level', 5:'Advanced technical'};
+
+  const TOOL_CATEGORIES = [...new Map(ASSIGNMENTS.map(a => [a.toolKey, a.tool])).entries()];
+
+  /* ---------------- STATE ---------------- */
+  let activeFilters = new Set(TOOL_CATEGORIES.map(t => t[0]));
+  let searchTerm = '';
+  let sortKey = 'sheetSort';
+  let sortDir = 'asc';
+  let openId = null;
+
+  /* ---------------- RENDER: CHIPS ---------------- */
+  const chipRow = document.getElementById('chipRow');
+  TOOL_CATEGORIES.forEach(([key, label]) => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.type = 'button';
+    chip.textContent = label;
+    chip.setAttribute('aria-pressed', 'true');
+    chip.addEventListener('click', () => {
+      if (activeFilters.has(key)) { activeFilters.delete(key); }
+      else { activeFilters.add(key); }
+      chip.setAttribute('aria-pressed', activeFilters.has(key) ? 'true' : 'false');
+      render();
+    });
+    chipRow.appendChild(chip);
+  });
+
+  /* ---------------- SCALE BAR ---------------- */
+  function scaleBarHTML(level, label){
+    const pct = ((level - 1) / 4) * 100;
+    let ticks = '';
+    for (let i = 1; i <= 5; i++){
+      const tickPct = ((i - 1) / 4) * 100;
+      ticks += `<span class="scale-tick ${i <= level ? 'filled' : ''}" style="left:${tickPct}%"></span>`;
+    }
+    return `
+      <div class="scale" aria-label="Expertise level ${level} of 5: ${label}">
+        <div class="scale-track">
+          <div class="scale-line"></div>
+          <div class="scale-fill" style="width:${pct}%"></div>
+          ${ticks}
+          <div class="scale-marker" style="left:${pct}%"></div>
+        </div>
+        <span class="scale-label">${level}/5 &middot; ${label}</span>
+      </div>`;
+  }
+
+  /* ---------------- SECTION BUILDER ---------------- */
+  function listSection(title, items){
+    if (!items || !items.length) return '';
+    return `<div class="d-section"><h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`;
+  }
+  function textSection(title, text){
+    if (!text) return '';
+    return `<div class="d-section"><h4>${title}</h4><p>${text}</p></div>`;
+  }
+
+  function iframeHTML(assignmentId, title, src){
+    const storedSrc = (FILE_STORE[assignmentId] && FILE_STORE[assignmentId].iframeSrc) || src || '';
+    const escapedSrc = storedSrc.replace(/"/g, '&quot;');
+    return `
+      <div class="d-iframe-section" data-iframe-section="${assignmentId}">
+        <h4>Embedded view</h4>
+        <div class="iframe-wrap">
+          <div class="iframe-toolbar">
+            <div class="iframe-url-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span class="iframe-url-text" id="iframe-url-display-${assignmentId}">${storedSrc || 'No source — paste a URL below and click Load'}</span>
+            </div>
+            <div class="iframe-toolbar-actions">
+              <a href="${escapedSrc}" target="_blank" rel="noopener" class="iframe-btn" id="iframe-open-link-${assignmentId}" ${!storedSrc ? 'tabindex="-1" style="pointer-events:none;opacity:0.4"' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Open
+              </a>
+            </div>
+          </div>
+          <iframe
+            class="iframe-frame"
+            id="iframe-frame-${assignmentId}"
+            src="${escapedSrc}"
+            title="${title.replace(/"/g, '&quot;')}"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+          ></iframe>
+          <div class="iframe-src-input-row">
+            <input
+              type="text"
+              class="iframe-src-input"
+              id="iframe-src-input-${assignmentId}"
+              placeholder="Paste a URL to embed (e.g. https://… or a local file path)…"
+              value="${escapedSrc}"
+            >
+            <button type="button" class="iframe-load-btn" data-iframe-load="${assignmentId}">Load</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function wireIframeEvents(container, assignmentId){
+    const loadBtn = container.querySelector(`[data-iframe-load="${assignmentId}"]`);
+    if (!loadBtn) return;
+    loadBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const input  = container.querySelector(`#iframe-src-input-${assignmentId}`);
+      const frame  = container.querySelector(`#iframe-frame-${assignmentId}`);
+      const display = container.querySelector(`#iframe-url-display-${assignmentId}`);
+      const openLink = container.querySelector(`#iframe-open-link-${assignmentId}`);
+      const src = (input ? input.value.trim() : '') || '';
+      if (frame) frame.src = src;
+      if (display) display.textContent = src || 'No source — paste a URL below and click Load';
+      if (openLink){
+        openLink.href = src;
+        openLink.style.pointerEvents = src ? '' : 'none';
+        openLink.style.opacity = src ? '' : '0.4';
+      }
+      // Persist the URL so it survives re-renders and is saved on export
+      if (!FILE_STORE[assignmentId]) FILE_STORE[assignmentId] = {};
+      FILE_STORE[assignmentId].iframeSrc = src;
+    });
+  }
+
+  function detailHTML(a){
+    // Use the pre-set iframeSrc from assignment data as the default;
+    // wireIframeEvents will update FILE_STORE when the user loads a new URL.
+    return `
+      <div class="detail-inner">
+        <div class="detail-head">
+          <div>
+            <h3>${a.title}</h3>
+            <span class="d-tool">${a.sheet} &middot; ${a.tool}</span>
+          </div>
+        </div>
+        <div class="detail-grid">
+          ${textSection('Description', a.description)}
+          ${listSection('Methodology', a.methodology)}
+          ${listSection('Results', a.results)}
+        </div>
+        ${a.reflection ? textSection('Reflection', a.reflection) : ''}
+        ${a.note ? `<div class="d-note">${a.note}</div>` : ''}
+        ${iframeHTML(a.id, a.title, a.iframeSrc || '')}
+      </div>`;
+  }
+
+  /* ---------------- IFRAME URL STORE ---------------- */
+  // FILE_STORE holds { [assignmentId]: { iframeSrc: '...' } }
+  // Seeded from the baked-in <script id="portfolio-data"> tag on load.
+  let FILE_STORE = {};
+  try{
+    const raw = document.getElementById('portfolio-data').textContent.trim();
+    FILE_STORE = (raw && raw !== '{}') ? JSON.parse(raw) : {};
+  } catch(e){ FILE_STORE = {}; }
+
+  /* ---------------- EXPORT ---------------- */
+  function exportPortfolio(){
+    const btn = document.getElementById('saveBtn');
+    const status = document.getElementById('saveStatus');
+    btn.disabled = true;
+    btn.textContent = 'Preparing…';
+
+    try{
+      // Serialize the current file store into the portfolio-data script tag
+      const dataJson = JSON.stringify(FILE_STORE);
+      let html = document.documentElement.outerHTML;
+
+      // Replace the content of the portfolio-data script tag
+      html = html.replace(
+        /(<script\s+id="portfolio-data"[^>]*>)([\s\S]*?)(<\/script>)/,
+        `$1\n${dataJson}\n$3`
+      );
+
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Adam_Morgan_AI_Architecture_Portfolio.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+      status.textContent = '✓ Saved — share the downloaded file, embedded URLs included';
+      status.classList.add('visible');
+      setTimeout(() => status.classList.remove('visible'), 4000);
+    } catch(err){
+      alert('Export failed: ' + err.message);
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save &amp; download portfolio`;
+  }
+
+  document.getElementById('saveBtn').addEventListener('click', exportPortfolio);
+
+  /* ---------------- MAIN RENDER ---------------- */
+  const tbody = document.getElementById('tableBody');
+  const emptyState = document.getElementById('emptyState');
+  const resultCount = document.getElementById('resultCount');
+
+  function getFiltered(){
+    const term = searchTerm.trim().toLowerCase();
+    return ASSIGNMENTS.filter(a => {
+      if (!activeFilters.has(a.toolKey)) return false;
+      if (!term) return true;
+      const hay = (a.title + ' ' + a.blurb + ' ' + a.description + ' ' + a.tool).toLowerCase();
+      return hay.includes(term);
+    });
+  }
+
+  function getSorted(list){
+    const dir = sortDir === 'asc' ? 1 : -1;
+    return [...list].sort((x, y) => {
+      let vx = x[sortKey], vy = y[sortKey];
+      if (typeof vx === 'string') vx = vx.toLowerCase();
+      if (typeof vy === 'string') vy = vy.toLowerCase();
+      if (vx < vy) return -1 * dir;
+      if (vx > vy) return 1 * dir;
+      return 0;
+    });
+  }
+
+  function render(){
+    const filtered = getSorted(getFiltered());
+    tbody.innerHTML = '';
+
+    resultCount.textContent = filtered.length === ASSIGNMENTS.length
+      ? `Showing all ${ASSIGNMENTS.length} sheets`
+      : `Showing ${filtered.length} of ${ASSIGNMENTS.length} sheets`;
+
+    emptyState.style.display = filtered.length ? 'none' : 'block';
+
+    filtered.forEach(a => {
+      const row = document.createElement('tr');
+      row.className = 'row';
+      row.dataset.id = a.id;
+      row.setAttribute('role', 'button');
+      row.setAttribute('tabindex', '0');
+      row.setAttribute('aria-expanded', openId === a.id ? 'true' : 'false');
+      if (openId === a.id) row.classList.add('is-open');
+
+      row.innerHTML = `
+        <td class="col-sheet">${a.sheet}</td>
+        <td class="col-title">
+          <span class="t-name">${a.title}</span>
+          <span class="t-blurb">${a.blurb}</span>
+        </td>
+        <td class="col-tool">${a.tool}</td>
+        <td class="col-scale">${scaleBarHTML(a.level, a.levelLabel)}</td>
+        <td class="col-caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 6 15 12 9 18"/></svg></td>
+      `;
+
+      const detailRow = document.createElement('tr');
+      detailRow.className = 'detail-row' + (openId === a.id ? ' open' : '');
+      const td = document.createElement('td');
+      td.colSpan = 5;
+      td.innerHTML = openId === a.id ? detailHTML(a) : '';
+      td.addEventListener('click', (e) => e.stopPropagation());
+      detailRow.appendChild(td);
+      if (openId === a.id){
+        wireIframeEvents(td, a.id);
+      }
+
+      function toggle(){
+        openId = (openId === a.id) ? null : a.id;
+        render();
+        if (openId === a.id){
+          requestAnimationFrame(() => {
+            const el = document.querySelector(`tr.row[data-id="${a.id}"]`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          });
+        }
+      }
+
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+      });
+
+      tbody.appendChild(row);
+      tbody.appendChild(detailRow);
+    });
+  }
+
+  /* ---------------- SORT HEADERS ---------------- */
+  document.querySelectorAll('th.sortable').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (sortKey === key){
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortKey = key;
+        sortDir = 'asc';
+      }
+      document.querySelectorAll('th.sortable').forEach(h => {
+        h.classList.remove('active-sort', 'desc');
+      });
+      th.classList.add('active-sort');
+      if (sortDir === 'desc') th.classList.add('desc');
+      render();
+    });
+  });
+  document.querySelector('th[data-key="sheetSort"]').classList.add('active-sort');
+
+  /* ---------------- SEARCH ---------------- */
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchTerm = e.target.value;
+    render();
+  });
+
+  render();
+})();
+</script>
+
+
+
+</body></html>
